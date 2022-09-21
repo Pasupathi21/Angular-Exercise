@@ -1,1 +1,0 @@
-export const initialColor: string | string[] =  'red';

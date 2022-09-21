@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { changeColor } from '../../state/color.actions'
+import { changeColor } from '../state/color.actions'
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',

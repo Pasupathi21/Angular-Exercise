@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { ActionComponent } from './action-color/action/action.component';
 import { ColorComponent } from './action-color/color/color.component';
 import { StoreModule } from '@ngrx/store';
-import { callReducer } from './state/color.reduce';
+import { callReducer } from './action-color/state/color.reduce';
 
 @NgModule({
   declarations: [
