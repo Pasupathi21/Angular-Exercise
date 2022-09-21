@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Store } from '@ngrx/store';
+import { changeColor } from '../../state/color.actions'
 @Component({
   selector: 'app-action',
   templateUrl: './action.component.html',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<{ color: string}>) { }
 
   ngOnInit(): void {
+  }
+
+  triggerChange(){
+    this.store.dispatch(changeColor())
   }
 
 }

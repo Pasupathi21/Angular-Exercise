@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ActionComponent } from './action-color/action/action.component';
 import { ColorComponent } from './action-color/color/color.component';
+import { StoreModule } from '@ngrx/store';
+import { callReducer } from './state/color.reduce';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { ColorComponent } from './action-color/color/color.component';
     ColorComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot({color: callReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]
