@@ -5,7 +5,7 @@
 <div class="main-cont">
     <ng-container >
         <div class="sender">
-            <input type="text">
+            <input type="text" [(ngModel)]="msg">
             <button (click)="sendMessage()">Send</button> 
             <div class="btn-history">
                 <button class="history" (click)="showHistory()">View History</button>

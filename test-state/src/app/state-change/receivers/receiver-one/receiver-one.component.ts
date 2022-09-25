@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs"
+import { Message } from '../../state-changes/message.state';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-receiver-one',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiverOneComponent implements OnInit {
 
-  constructor() { }
+  receiverOneObservable$!: Observable<Message>
+  receiverOneData!: Message;
+
+  constructor(private store: Store<any>) {
+
+  }
 
   ngOnInit(): void {
+
+    this.store.pipe(select(`messageInfo`)).subscribe(data => {
+      console.log("R1", data)
+      this.receiverOneData = data;
+    })
   }
 
 }

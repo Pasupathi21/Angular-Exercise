@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { senderAction } from "../state-changes/message.actions"
 
 @Component({
   selector: 'app-sender',
@@ -8,13 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class SenderComponent implements OnInit {
 
   viewHistory:boolean = false;
-  constructor() { }
+  msg!: string;
+
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
   }
 
   sendMessage(){
-    
+    this.store.dispatch(senderAction({message: this.msg, from: 'Sender'}))
   }
 
   showHistory(){

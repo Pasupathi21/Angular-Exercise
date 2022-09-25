@@ -16,6 +16,8 @@ import { SenderComponent } from './state-change/sender/sender.component';
 import { ReceiverOneComponent } from './state-change/receivers/receiver-one/receiver-one.component';
 import { ReceiverTwoComponent } from './state-change/receivers/receiver-two/receiver-two.component';
 import { HistoryLogsComponent } from './state-change/history-logs/history-logs.component';
+import { passMessage } from './state-change/state-changes/message.reducers';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,10 +34,11 @@ import { HistoryLogsComponent } from './state-change/history-logs/history-logs.c
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({color: callReducer}),
+    StoreModule.forRoot({color: callReducer, messageInfo: passMessage}),
     HttpClientModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
