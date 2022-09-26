@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { senderAction } from "../state-changes/message.actions"
+import { select, Store } from '@ngrx/store';
+import { senderAction, historyActionFromSender } from "../state-changes/message.actions"
+import { Message } from '../state-changes/message.state';
 
 @Component({
   selector: 'app-sender',
@@ -11,10 +12,16 @@ export class SenderComponent implements OnInit {
 
   viewHistory:boolean = false;
   msg!: string;
+  historyData: Message[] = [];
 
   constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(`messageInfo`)).subscribe(data => {
+      console.log("Sender Data", data);
+      
+      this.historyData.push(data);
+    })
   }
 
   sendMessage(){
@@ -23,6 +30,7 @@ export class SenderComponent implements OnInit {
 
   showHistory(){
     this.viewHistory = !this.viewHistory
+    this.store.dispatch(historyActionFromSender(this.historyData));
   }
 
 }

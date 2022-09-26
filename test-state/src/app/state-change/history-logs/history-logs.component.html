@@ -1,1 +1,20 @@
-<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. A in ad, culpa dolore adipisci facere quod nam enim, porro inventore quidem. Esse officiis id ea voluptas! Quisquam ipsa voluptates earum.</p>
+<div class="history-cont">
+    <h4>Messages Logs</h4>
+    <div class="table">
+        <table>
+            <thead>
+                <th>From</th>
+                <!-- <th>To</th> -->
+                <th>Message</th>
+                <th>Time</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of historyData">
+                    <td>{{item.from}}</td>
+                    <td>{{item.message}}</td>
+                    <td>{{item.at | date:'short'}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

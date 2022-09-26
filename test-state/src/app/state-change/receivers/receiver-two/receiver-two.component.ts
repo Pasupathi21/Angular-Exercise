@@ -16,7 +16,6 @@ export class ReceiverTwoComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(`messageInfo`)).subscribe(data => {
-      console.log("R2", data)
       this.receiverTwoData = data;
     });
   }

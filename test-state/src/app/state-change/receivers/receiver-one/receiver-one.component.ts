@@ -20,7 +20,6 @@ export class ReceiverOneComponent implements OnInit {
   ngOnInit(): void {
 
     this.store.pipe(select(`messageInfo`)).subscribe(data => {
-      console.log("R1", data)
       this.receiverOneData = data;
     })
   }
