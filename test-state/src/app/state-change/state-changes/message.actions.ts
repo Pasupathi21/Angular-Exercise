@@ -5,3 +5,4 @@ export const senderAction = createAction(`[Sender Component] actionFromSender`, 
 export const receiverOneAction = createAction(`[ReceiverOne Component] actionFromReceiverOne`, props<Message>());
 export const receiverTwoAction = createAction(`[ReceiverTwo Component] actionFromReceiverTwo`, props<Message>());
 export const historyActionFromSender = createAction(`[Sender Component(History)] actionHistoryFromSender`, props<Message | Message[]>());
+export const chatHistory = createAction(`[Histroy Component] actionBackupHistory`);

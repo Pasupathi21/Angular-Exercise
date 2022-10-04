@@ -1,7 +1,11 @@
 export interface Message {
- message:string | number;
+ message:string;
  from: string;
  at?: Date | string ; 
+}
+
+export interface MessageHistory {
+    chatLog: Message[]
 }
 
 export const initialMessage: Message = {

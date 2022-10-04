@@ -1,41 +1,52 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialMessage, Message } from "./message.state";
-import { senderAction, receiverOneAction, receiverTwoAction, historyActionFromSender} from "./message.actions"
+import { senderAction, receiverOneAction, receiverTwoAction, chatHistory} from "./message.actions"
 
+const backupMsg: Message[] = [initialMessage]
 
-export function validateData(data: Message){
-    console.log("validateData: ", data);
-    const validate = {...data};
-    validate.message = data.message ? data.message : 'Empty Message'
-    validate.at = data.at ? data.at : new Date();
-    
-    return validate
+function historyBackup(args: Message){
+    backupMsg.push(args)
 }
-
 export const _messageReducers = createReducer(
     initialMessage,
     on(senderAction, (state, action) => {
-        const data  = validateData(action);
-        return {...data}
-    }),
-    on(receiverOneAction, (state, action) => {
-        const data  = validateData(action);
-        return {...data}
-    }),
-    on(receiverTwoAction, (state, action) => {
-        const data  = validateData(action);
-        return {...data}
-    }),
-    on(historyActionFromSender, (state, action) => {
-        console.log("History data", action);
+        console.log("Action data: ", action)
+        console.log("State data: ", state)
+        const validateData = Object.assign({},action)
+        validateData.message = action.message ? action.message : 'Empty Message'
+        validateData.at = action.at ? action.at : new Date();
+        historyBackup(validateData)
         return {
-            ...action,
-            ...state,
-            
+            ...validateData,
         }
+    }),
+    on(receiverOneAction, (action) => {
+        action.message = action.message ? action.message : 'Empty Message'
+        action.at = action.at ? action.at : new Date();
+        historyBackup(action)
+        return {
+            ...initialMessage,
+            messageInfo: action
+        }
+    }),
+    on(receiverTwoAction, (action) => {
+        action.message = action.message ? action.message : 'Empty Message'
+        action.at = action.at ? action.at : new Date();
+        historyBackup(action)
+        return {
+            ...initialMessage,
+            messageInfo: action
+        }
+    }),
+    on(chatHistory, (state) => {
+        return {
+            ...state,
+            chatLog: backupMsg 
+        }
+            
     })
 );
 
-export function passMessage(messageState: any, messageAction: any): Message {
+export function passMessage(messageState: any, messageAction: any){
     return _messageReducers(messageState, messageAction)
 }
