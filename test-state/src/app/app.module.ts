@@ -18,6 +18,8 @@ import { ReceiverTwoComponent } from './state-change/receivers/receiver-two/rece
 import { HistoryLogsComponent } from './state-change/history-logs/history-logs.component';
 import { passMessage } from './state-change/state-changes/message.reducers';
 import { FormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,11 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

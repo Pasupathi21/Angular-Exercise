@@ -2,40 +2,36 @@ import { createReducer, on } from "@ngrx/store";
 import { initialMessage, Message } from "./message.state";
 import { senderAction, receiverOneAction, receiverTwoAction, chatHistory} from "./message.actions"
 
-const backupMsg: Message[] = [initialMessage]
+let backupMsg: Message[] = [initialMessage]
 
 function historyBackup(args: Message){
-    backupMsg.push(args)
+    backupMsg = [...backupMsg, args];
 }
+function validateMessage(data: Message){
+    const validateData = Object.assign({},data)
+    validateData.message = validateData.message ? validateData.message : 'Empty Message'
+    validateData.at = validateData.at ? validateData.at : new Date();
+    return validateData
+}
+
 export const _messageReducers = createReducer(
     initialMessage,
     on(senderAction, (state, action) => {
-        console.log("Action data: ", action)
-        console.log("State data: ", state)
-        const validateData = Object.assign({},action)
-        validateData.message = action.message ? action.message : 'Empty Message'
-        validateData.at = action.at ? action.at : new Date();
-        historyBackup(validateData)
+        historyBackup(validateMessage(action))
         return {
-            ...validateData,
+            ...validateMessage(action),
         }
     }),
-    on(receiverOneAction, (action) => {
-        action.message = action.message ? action.message : 'Empty Message'
-        action.at = action.at ? action.at : new Date();
-        historyBackup(action)
+    on(receiverOneAction, (state, action) => {
+        historyBackup(validateMessage(action))
         return {
-            ...initialMessage,
-            messageInfo: action
+            ...validateMessage(action),
         }
     }),
-    on(receiverTwoAction, (action) => {
-        action.message = action.message ? action.message : 'Empty Message'
-        action.at = action.at ? action.at : new Date();
-        historyBackup(action)
+    on(receiverTwoAction, (state, action) => {
+        historyBackup(validateMessage(action))
         return {
-            ...initialMessage,
-            messageInfo: action
+            ...validateMessage(action),
         }
     }),
     on(chatHistory, (state) => {

@@ -16,8 +16,15 @@ export class HistoryLogsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.store.pipe(select(messageHistory)).subscribe(data => {
-      console.log("History Data", data)
-      this.historyData = data;
+      const history: Message[] = []
+      let position = data.length - 1;
+      data.map((item) => {
+        if(position >= 0){
+          history.push(data[position])
+          position--
+        }
+      })
+      this.historyData = history;
       
     })
   }

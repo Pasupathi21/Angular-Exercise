@@ -5,6 +5,6 @@
         <h5>from: {{receiverTwoData.from}}</h5>
     </div>
 
-    <input type="text">
-    <button>Send</button>
+    <input type="text" [(ngModel)]="receiverTwoMsg">
+    <button (click)="sendMessage()">Send</button>
 </div>
